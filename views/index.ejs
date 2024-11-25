@@ -48,6 +48,10 @@
             list-style-type: none;
         }
 
+        img {
+            float: right;
+        }
+
     </style>
 </head>
 <body>
@@ -60,6 +64,9 @@
 
     <% if(locals.data){ %>
         <div>
+            <img src="<%= data.strDrinkThumb %>" alt="">
+        </div>
+        <div>
             <h2 class="recipe"><%= data["strDrink"] %></h2>
             <ul>
                 <li>Category: <%= data["strCategory"]%></li>
@@ -67,15 +74,21 @@
                 <li>Serving glass: <%= data["strGlass"]%></li>
 
                 <% let strIngredients = Object.keys(data).filter(value => /^strIngredient/i.test(value)).map(e => data[e]); %>
-            
-
-                   <% for (const [key, value] of Object.entries(strIngredients )) { %>
-                   <% if(value){ %>
-
-                    <li>Ingradients: <%= value %></li>
+                <% let arrIngredients = []; %>
+                <% for (const [key, value] of Object.entries(strIngredients)) { %>
+                    <%if(value){ %>
+                        <% arrIngredients.push(value); %>
                    <% }  %>
-                   <% } %>
-                <li></li>
+                <% } %>
+                <li>Ingradients: <%= arrIngredients.join(", ") %></li>
+                <% let strMeasure = Object.keys(data).filter(value => /^strMeasure/i.test(value)).map(e => data[e]); %>
+                <% let arrMeasure = []%>
+                <% for(const [key, value] of Object.entries(strMeasure)) { %>
+                    <% if(value) { %>
+                        <% arrMeasure.push(value); %>
+                    <%}%>
+               <% } %>
+                <li><%= arrMeasure %></li>
                 <li>Instructions: <%= data["strInstructions"]%></li>
             </ul>
         </div>
