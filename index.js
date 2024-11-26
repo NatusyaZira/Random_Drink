@@ -13,7 +13,6 @@ app.get("/", async (req, res) => {
     try {
         const response = await axios.get(API_URL);
         const result = response.data.drinks[0];
-        
         console.log(result);
         res.render("index.ejs", {data: result});
     } catch (error) {
